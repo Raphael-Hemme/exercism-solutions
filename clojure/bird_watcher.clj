@@ -1,3 +1,5 @@
+;; https://exercism.org/tracks/clojure/exercises/bird-watcher
+
 (ns bird-watcher)
 
 (def last-week [0 2 5 3 7 8 4])
@@ -8,20 +10,20 @@
 
 (defn inc-bird
   [birds]
-  (assoc birds 6 (inc (today birds))))
+  (conj (pop birds) (inc (today birds))))
 
 (inc-bird last-week)
 
 (defn day-without-birds?
   [birds]
-  (if (nil? (some #(= 0 %) birds)) false true))
+  (or (some zero? birds) 
+      false))
 
 (day-without-birds? last-week)
 
 (defn n-days-count
   [birds n]
-  (cond (>= n (count birds)) (reduce + birds)
-        :else (reduce + (subvec birds 0 n))))
+  (reduce + (take n birds)))
 
 (n-days-count [1 1 1 1 1 1 1] 5)
 
