@@ -29,4 +29,10 @@
   [birds]
   (count (filter #(>= % 5) birds)))
 
-(busy-days last)
+(busy-days last-week)
+
+(defn odd-week? 
+  [birds]
+  (or (= birds [1 0 1 0 1 0 1]) (= birds [0 1 0 1 0 1 0])))
+
+(odd-week? [0 1 0 1 0 1 1])
