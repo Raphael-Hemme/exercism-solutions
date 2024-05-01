@@ -23,22 +23,11 @@
       (str/replace ,,, "[" "")
       (str/lower-case ,,,)))
 
-;; (defn reformat
-;;   "Takes a string representing a log line and formats it
-;;    with the message first and the log level in parentheses."
-;;   [s]
-;;   (-> (str/trim s)
-;;       (str/split ,,, #"]") 
-;;       (into [] ,,,)
-;;       (apply str ,,,)
-;;       (print ,,,)
-;;       (str/join " " ,,,)))
-
 (defn reformat
   "Takes a string representing a log line and formats it
    with the message first and the log level in parentheses."
   [s]
-  (str (str/trim (str/replace (last (str/split (str/trim s) #"]" )) ": " "")) " (" (log-level s) ")"))
+  (str (message s) " (" (log-level s) ")"))
 
 (message "[ERROR]: Invalid operation")
 (message "[WARNING]:  Disk almost full\r\n")
