@@ -12,23 +12,33 @@
    and returns its message with whitespace trimmed."
   [s]
   (-> (str/replace s #"\[(.*?)\]:" "")
-      (str/trim)))
+      (str/trim ,,,)))
 
 (defn log-level
   "Takes a string representing a log line
    and returns its level in lower-case."
   [s]
   (-> (str/split s #"]")
-      (first)
+      (first ,,,)
       (str/replace ,,, "[" "")
       (str/lower-case ,,,)))
+
+;; (defn reformat
+;;   "Takes a string representing a log line and formats it
+;;    with the message first and the log level in parentheses."
+;;   [s]
+;;   (-> (str/trim s)
+;;       (str/split ,,, #"]") 
+;;       (into [] ,,,)
+;;       (apply str ,,,)
+;;       (print ,,,)
+;;       (str/join " " ,,,)))
 
 (defn reformat
   "Takes a string representing a log line and formats it
    with the message first and the log level in parentheses."
-  [s])
-
-
+  [s]
+  (str (str/trim (str/replace (last (str/split (str/trim s) #"]" )) ": " "")) " (" (log-level s) ")"))
 
 (message "[ERROR]: Invalid operation")
 (message "[WARNING]:  Disk almost full\r\n")
@@ -37,3 +47,5 @@
 (message "[WARNING]:  Disk almost full\r\n")
 
 (log-level "[WARNING]:  Disk almost full\r\n")
+
+(reformat "[WARNING]:  Disk almost full\r\n")
