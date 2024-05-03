@@ -1,23 +1,19 @@
 (ns squeaky-clean
   (:require [clojure.string :as str]))
 
-;; (defn replaceControlChar
-;;   [c] 
-;;   ((if (Character/isISOControl c) "CTRL" c)))
-
 (defn kebab-to-camel-case
   [s]
-  (apply str (map-indexed (fn [idx itm] 
-                 (if (> idx 0) (str/capitalize itm) itm))
-               (str/split s #"-"))))
+  (->> (str/split s #"-") 
+      (map-indexed #(if (> %1 0) (str/capitalize %2) %2))
+      (apply str)))
 
-  (defn clean
-    "TODO: add docstring"
-    [s]
-    (-> s
-        (str/replace " " "_")
-        (str/replace #"\p{Cc}" "CTRL")
-        (kebab-to-camel-case ,,,)))
+(defn clean
+  "TODO: add docstring"
+  [s]
+  (-> s
+      (str/replace " " "_")
+      (str/replace #"\p{Cc}" "CTRL")
+      (kebab-to-camel-case ,,,)))
 
 
 
