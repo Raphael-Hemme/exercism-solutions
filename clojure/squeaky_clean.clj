@@ -4,12 +4,8 @@
 (defn kebab-to-camel-case
   [s]
   (->> (str/split s #"-") 
-      (map-indexed #(if (> %1 0) (str/capitalize %2) %2))
+      (map-indexed #(if (> %1 0) (str (str/upper-case (subs %2 0 1)) (subs %2 1)) %2))
       (apply str)))
-
-(defn replace-non-letters
-  [s]
-  (str/replace s #"/[^\p{L}\-]/gu" ""))
 
 (defn clean
   "TODO: add docstring"
@@ -18,7 +14,8 @@
       (str/replace " " "_")
       (str/replace #"\p{Cc}" "CTRL")
       (kebab-to-camel-case)
-      (str/replace #"[^\p{L}\p{M}\-\_]" "")))
+      (str/replace #"[^\p{L}\p{M}\-\_]" "")
+      (str/replace #"[α-ω]" "")))
 
 
 ;; Test cases
@@ -29,3 +26,5 @@
 (clean "nice-test-case")
 (clean "1😀2😀3😀")
 (clean "nice_test-case")
+(clean "MyΟβιεγτFinder")
+(clean "9 -abcĐ😀ω")
